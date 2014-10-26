@@ -12,6 +12,13 @@ endif
 
 CFLAGS=-O2 -g -Wall -W `pkg-config --cflags librtlsdr`
 LIBS=`pkg-config --libs librtlsdr` -lpthread -lm
+
+OS=$(shell uname -s)
+ifeq ($(OS),OpenBSD)
+# OpenBSD needs -lcompat for ftime(3)
+LIBS+=-lcompat
+endif
+
 CC=gcc
 
 
